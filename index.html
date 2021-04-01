@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      background: black;
+      position: absolute;
+      top: 50%;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.8, 0.5, 1);
+    }
+
+    .hour-hand{
+      height: 11px;
+      width:30%;
+      left:21%;
+      transform: rotate(20deg);
+      transform-origin: 97%;
+    }
+
+    .min-hand{
+      height: 6px;
+      width:40%;
+      left:10%;
+      transform: rotate(40deg);
+      transform-origin: 97%;
+    }
+
+    .second-hand{
+      width:50%;
+      height:2px;
+      transform: rotate(60deg);
+      transform-origin: 100%;
+    }
+
+  </style>
+
+  <script>
+
+    var secondsTick = document.querySelector('.second-hand');
+    var minutesTick = document.querySelector('.min-hand');
+    var hoursTick = document.querySelector('.hour-hand');
+   
+    var date = new Date();
+    var hours = date.getHours()*6+90;
+    var minutes = date.getMinutes()*6+90;
+    var seconds = date.getSeconds()*6+90;
+
+    secondsTick.style.transform = ("rotate("+seconds+"deg)");
+    minutesTick.style.transform = ("rotate("+minutes+"deg)");
+    hoursTick.style.transform = ("rotate("+hours+"deg)");
+
+    
+    var rotateSeconds = setInterval(function(){ 
+      seconds += 6;
+      secondsTick.style.transform = ("rotate("+seconds+"deg)");
+
+      if(seconds==450){
+        minutes += 6;
+        seconds -= 360;
+        minutesTick.style.transform = ("rotate("+minutes+"deg)");
+      }
+
+      if(minutes==450){
+        hours += 6;
+        minutes -= 360;
+        hoursTick.style.transform = ("rotate("+hours+"deg)");
+      }
+
+
+    }, 1000);
+
+
+    
+    
+
+
+  </script>
+</body>
+</html>
