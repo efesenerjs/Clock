@@ -96,7 +96,14 @@
     var hoursTick = document.querySelector('.hour-hand');
    
     var date = new Date();
-    var hours = date.getHours()*6+90;
+
+    var getHours = date.getHours();
+    if(getHours>=12)
+    getHours -= 12;
+
+    var hours = getHours*6+90;
+
+
     var minutes = date.getMinutes()*6+90;
     var seconds = date.getSeconds()*6+90;
 
@@ -104,6 +111,7 @@
     minutesTick.style.transform = ("rotate("+minutes+"deg)");
     hoursTick.style.transform = ("rotate("+hours+"deg)");
 
+    console.log(hours);
     
     var rotateSeconds = setInterval(function(){ 
       seconds += 6;
